@@ -16,7 +16,7 @@ required_apps = ["erpnext"]
 # action at the Item Creator page — that redirect is how the guided flow is
 # actually enforced, so it must be a global include rather than a list-view
 # script (list settings are per-site and can be overwritten).
-app_include_js = "/assets/item_creator/js/item_list.js"
+app_include_js = "item_creator.bundle.js"
 
 # ── Install / migrate ───────────────────────────────────────────────────────
 # Both entry points call the same idempotent routine, so a site that installed
