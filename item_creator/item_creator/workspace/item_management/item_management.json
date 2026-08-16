@@ -10,12 +10,12 @@
  "icon": "package",
  "idx": 0,
  "is_hidden": 0,
- "label": "Item Creator",
+ "label": "Item Management",
  "links": [],
  "modified": "2026-08-16 00:00:00.000000",
  "modified_by": "Administrator",
  "module": "Item Creator",
- "name": "Item Creator",
+ "name": "Item Management",
  "number_cards": [],
  "owner": "Administrator",
  "parent_page": "",
@@ -67,5 +67,5 @@
    "type": "DocType"
   }
  ],
- "title": "Item Creator"
+ "title": "Item Management"
 }
