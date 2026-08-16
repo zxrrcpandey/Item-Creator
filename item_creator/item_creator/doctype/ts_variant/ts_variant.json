@@ -1,0 +1,98 @@
+{
+ "actions": [],
+ "autoname": "field:variant_code",
+ "creation": "2026-03-09 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "variant_code",
+  "variant_name",
+  "column_break_1",
+  "enabled",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "variant_code",
+   "fieldtype": "Data",
+   "label": "Variant Code",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "description": "3-character UPPERCASE alphanumeric code (e.g., RED, LRG, V01)"
+  },
+  {
+   "fieldname": "variant_name",
+   "fieldtype": "Data",
+   "label": "Variant Name",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled",
+   "default": "1",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  }
+ ],
+ "links": [],
+ "modified": "2026-03-09 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Item Creator",
+ "name": "TS Variant",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Item Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Stock Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "search_fields": "variant_code, variant_name",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "variant_name",
+ "track_changes": 1
+}

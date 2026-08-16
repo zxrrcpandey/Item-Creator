@@ -1,0 +1,369 @@
+<div class="itc-item-creator-page">
+
+	<!-- Sticky Preview Bar -->
+	<div class="itc-preview-bar" id="itc-preview-bar">
+		<div class="itc-preview-inner">
+			<div class="itc-preview-meta">
+				<div class="itc-preview-label">Generated Item Code</div>
+				<div class="itc-preview-sub" id="itc-preview-sub">&nbsp;</div>
+			</div>
+			<div class="itc-preview-code" id="itc-live-code" aria-live="polite" aria-atomic="true">
+				<span class="itc-code-placeholder">Select Company &amp; Category to begin</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Main Card -->
+	<div class="itc-card">
+
+		<!-- Validation banner (auto-shown on Create-time errors) -->
+		<div class="itc-error-banner" id="itc-error-banner" role="alert" aria-live="assertive" style="display:none;">
+			<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M9 5v5m0 2v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+			<span id="itc-error-banner-text">Please fix the highlighted errors below.</span>
+		</div>
+
+		<!-- ═══ SECTION 1: Company & Category + Creation Type ═══ -->
+		<details class="itc-section" id="itc-sec-basics" data-section="basics" open>
+			<summary class="itc-section-head">
+				<span class="itc-section-chevron" aria-hidden="true">
+					<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+				</span>
+				<span class="itc-section-title">Company &amp; Category</span>
+				<span class="itc-section-meta" id="itc-meta-basics">Select to begin</span>
+				<span class="itc-section-status" id="itc-status-basics" aria-hidden="true"></span>
+			</summary>
+			<div class="itc-section-body">
+
+				<!-- Creation Type Toggle -->
+				<div class="itc-form-row">
+					<div class="itc-form-group itc-full">
+						<label class="itc-label">Creation Type</label>
+						<div class="itc-creation-type-toggle" role="radiogroup" aria-label="Creation Type">
+							<button type="button" class="itc-creation-btn active" data-type="Regular Item" role="radio" aria-checked="true">
+								<span class="itc-creation-text">Regular Item</span>
+								<span class="itc-creation-desc">Stock / Consumable</span>
+							</button>
+							<button type="button" class="itc-creation-btn" data-type="Fixed Asset" role="radio" aria-checked="false">
+								<span class="itc-creation-text">Fixed Asset</span>
+								<span class="itc-creation-desc">Equipment / Vehicle / Furniture</span>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Company row -->
+				<div class="itc-form-row">
+					<div class="itc-form-group">
+						<label class="itc-label">Company <span class="itc-req">*</span></label>
+						<div class="itc-field" id="itc-company-field"></div>
+						<div class="itc-field-error" id="itc-err-company"></div>
+					</div>
+					<div class="itc-form-group itc-form-sm itc-company-code-type">
+						<label class="itc-label">Code Type</label>
+						<div class="itc-toggle-wrap" role="radiogroup" aria-label="Company Code Type">
+							<button type="button" class="itc-toggle-btn" data-target="company" data-value="Character" role="radio" aria-checked="false">ABC</button>
+							<button type="button" class="itc-toggle-btn active" data-target="company" data-value="Numerical" role="radio" aria-checked="true">123</button>
+						</div>
+					</div>
+					<div class="itc-form-group itc-form-code">
+						<label class="itc-label">Code</label>
+						<div class="itc-code-badge" id="itc-company-code">---</div>
+					</div>
+				</div>
+
+				<!-- Regular Item: Item Group selector -->
+				<div class="itc-form-row itc-regular-only">
+					<div class="itc-form-group">
+						<label class="itc-label">Item Group / Category <span class="itc-req">*</span></label>
+						<div class="itc-field" id="itc-category-field"></div>
+						<div class="itc-field-error" id="itc-err-category"></div>
+					</div>
+					<div class="itc-form-group itc-form-sm">
+						<label class="itc-label">Code Type</label>
+						<div class="itc-toggle-wrap" role="radiogroup" aria-label="Category Code Type">
+							<button type="button" class="itc-toggle-btn" data-target="category" data-value="Character" role="radio" aria-checked="false">ABC</button>
+							<button type="button" class="itc-toggle-btn active" data-target="category" data-value="Numerical" role="radio" aria-checked="true">123</button>
+						</div>
+					</div>
+					<div class="itc-form-group itc-form-code">
+						<label class="itc-label">Code</label>
+						<div class="itc-code-badge" id="itc-category-code">---</div>
+					</div>
+				</div>
+
+				<!-- Fixed Asset: Fiscal Year selector -->
+				<div class="itc-form-row itc-asset-only" style="display:none;">
+					<div class="itc-form-group">
+						<label class="itc-label">Fiscal Year <span class="itc-req">*</span></label>
+						<div class="itc-field" id="itc-fiscal-year-field"></div>
+						<div class="itc-field-error" id="itc-err-fy"></div>
+						<span class="itc-hint">Defaults to current FY. Override for backdated items.</span>
+					</div>
+					<div class="itc-form-group itc-form-code">
+						<label class="itc-label">FY Short</label>
+						<div class="itc-code-badge" id="itc-fy-short">---</div>
+					</div>
+				</div>
+
+				<!-- Fixed Asset: Asset Category selector -->
+				<div class="itc-form-row itc-asset-only" style="display:none;">
+					<div class="itc-form-group itc-full">
+						<label class="itc-label">Asset Category <span class="itc-req">*</span></label>
+						<div class="itc-field" id="itc-asset-category-field"></div>
+						<div class="itc-field-error" id="itc-err-asset-cat"></div>
+						<span class="itc-hint">Used by ERPNext to auto-create the Asset record when the PO is received.</span>
+					</div>
+				</div>
+
+				<!-- Serial Number preview -->
+				<div class="itc-form-row">
+					<div class="itc-form-group itc-form-code">
+						<label class="itc-label">Serial Number</label>
+						<div class="itc-code-badge itc-serial" id="itc-serial-code">---</div>
+						<span class="itc-hint">Auto-assigned on save</span>
+					</div>
+				</div>
+			</div>
+		</details>
+
+		<!-- ═══ SECTION 2: Item Details ═══ -->
+		<details class="itc-section" id="itc-sec-details" data-section="details" open>
+			<summary class="itc-section-head">
+				<span class="itc-section-chevron" aria-hidden="true">
+					<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+				</span>
+				<span class="itc-section-title">Item Details</span>
+				<span class="itc-section-meta" id="itc-meta-details">Name, UOM, HSN, Tax</span>
+				<span class="itc-section-status" id="itc-status-details" aria-hidden="true"></span>
+			</summary>
+			<div class="itc-section-body">
+				<div class="itc-form-row">
+					<div class="itc-form-group itc-item-name-group">
+						<label class="itc-label">Item Name</label>
+						<div class="itc-field" id="itc-item-name-field"></div>
+						<div class="itc-suggestions" id="itc-item-name-suggestions" role="listbox" aria-label="Existing similar items" style="display:none;"></div>
+						<span class="itc-hint">Optional. If empty, item code will be used as name. Type 3+ characters to check for existing items.</span>
+					</div>
+					<div class="itc-form-group">
+						<label class="itc-label">Stock UOM <span class="itc-req">*</span></label>
+						<div class="itc-field" id="itc-uom-field"></div>
+						<div class="itc-field-error" id="itc-err-uom"></div>
+					</div>
+				</div>
+
+				<div class="itc-form-row">
+					<div class="itc-form-group">
+						<label class="itc-label">HSN/SAC Code <span class="itc-req">*</span></label>
+						<div class="itc-field" id="itc-hsn-field"></div>
+						<div class="itc-field-error" id="itc-err-hsn"></div>
+						<span class="itc-hint">GST HSN/SAC code (minimum 6 digits).</span>
+					</div>
+					<div class="itc-form-group">
+						<label class="itc-label">Item Tax Template</label>
+						<div class="itc-field" id="itc-tax-template-field"></div>
+						<span class="itc-hint">e.g. GST-18%</span>
+					</div>
+				</div>
+
+				<div class="itc-form-row">
+					<div class="itc-form-group itc-full">
+						<label class="itc-label">Description</label>
+						<div class="itc-field" id="itc-description-field"></div>
+						<span class="itc-hint">Optional item description.</span>
+					</div>
+				</div>
+			</div>
+		</details>
+
+		<!-- ═══ SECTION 3: Variants (Regular-only, collapsed by default) ═══ -->
+		<details class="itc-section itc-regular-only" id="itc-sec-variants" data-section="variants">
+			<summary class="itc-section-head">
+				<span class="itc-section-chevron" aria-hidden="true">
+					<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+				</span>
+				<span class="itc-section-title">Variants</span>
+				<span class="itc-section-meta" id="itc-meta-variants">No variants</span>
+				<span class="itc-section-status" id="itc-status-variants" aria-hidden="true"></span>
+			</summary>
+			<div class="itc-section-body">
+				<div class="itc-variant-toggle">
+					<label class="itc-switch">
+						<input type="checkbox" id="itc-has-variant" aria-label="Enable Variants">
+						<span class="itc-slider"></span>
+					</label>
+					<span class="itc-switch-label">Enable Variants — create multiple items under one template code</span>
+				</div>
+
+				<div class="itc-variant-options" style="display:none;">
+					<div class="itc-source-tabs" role="tablist" aria-label="Variant source">
+						<button type="button" class="itc-source-tab active" data-source="Brand" role="tab" aria-selected="true">
+							<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3h12v2l-2 6H4L2 5V3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="5.5" cy="13.5" r="1" stroke="currentColor" stroke-width="1.5"/><circle cx="10.5" cy="13.5" r="1" stroke="currentColor" stroke-width="1.5"/></svg>
+							Brand
+						</button>
+						<button type="button" class="itc-source-tab" data-source="Custom Variant" role="tab" aria-selected="false">
+							<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+							Custom Variant
+						</button>
+					</div>
+
+					<div class="itc-variant-grid" id="itc-variant-grid"></div>
+
+					<button type="button" class="btn itc-btn-add-variant" id="itc-add-variant">
+						<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+						Add Variant
+					</button>
+				</div>
+			</div>
+		</details>
+
+		<!-- ═══ SECTION 4: Stock & Valuation (Regular-only) ═══ -->
+		<details class="itc-section itc-regular-only" id="itc-sec-stock" data-section="stock" open>
+			<summary class="itc-section-head">
+				<span class="itc-section-chevron" aria-hidden="true">
+					<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+				</span>
+				<span class="itc-section-title">Stock &amp; Valuation</span>
+				<span class="itc-section-meta" id="itc-meta-stock">Tracked</span>
+				<span class="itc-section-status" id="itc-status-stock" aria-hidden="true"></span>
+			</summary>
+			<div class="itc-section-body">
+				<div class="itc-form-row">
+					<div class="itc-form-group itc-full">
+						<label class="itc-label">Maintain Stock</label>
+						<div class="itc-variant-toggle" style="margin-top:4px;">
+							<label class="itc-switch">
+								<input type="checkbox" id="itc-maintain-stock" checked aria-label="Maintain Stock">
+								<span class="itc-slider"></span>
+							</label>
+							<span class="itc-switch-label">Track this item in stock / inventory</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Standalone stock rates (hidden when variant mode) -->
+				<div class="itc-stock-fields itc-standalone-stock">
+					<div class="itc-form-row">
+						<div class="itc-form-group">
+							<label class="itc-label">Valuation Rate</label>
+							<div class="itc-field" id="itc-valuation-rate-field"></div>
+							<div class="itc-field-error" id="itc-err-valuation"></div>
+							<span class="itc-hint">Rate at which item is valued in stock.</span>
+						</div>
+						<div class="itc-form-group">
+							<label class="itc-label">Standard Selling Rate</label>
+							<div class="itc-field" id="itc-standard-rate-field"></div>
+							<span class="itc-hint">Default selling price.</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Variant mode notice -->
+				<div class="itc-stock-fields itc-variant-stock" style="display:none;">
+					<div class="itc-info-box">
+						<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3m0 2.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+						<span>Valuation Rate, Selling Rate, Opening Stock &amp; Description are set <b>per variant</b> in the Variants section above.</span>
+					</div>
+				</div>
+			</div>
+		</details>
+
+		<!-- ═══ SECTION 5: Opening Stock (Regular-only, collapsed by default) ═══ -->
+		<details class="itc-section itc-regular-only" id="itc-sec-opening" data-section="opening">
+			<summary class="itc-section-head">
+				<span class="itc-section-chevron" aria-hidden="true">
+					<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+				</span>
+				<span class="itc-section-title">Opening Stock</span>
+				<span class="itc-section-meta" id="itc-meta-opening">None</span>
+				<span class="itc-section-status" id="itc-status-opening" aria-hidden="true"></span>
+			</summary>
+			<div class="itc-section-body">
+
+				<!-- Standalone opening stock -->
+				<div class="itc-stock-fields itc-standalone-stock">
+					<div class="itc-form-row">
+						<div class="itc-form-group">
+							<label class="itc-label">Opening Stock Quantity</label>
+							<div class="itc-field" id="itc-opening-stock-field"></div>
+							<div class="itc-field-error" id="itc-err-opening-stock"></div>
+							<span class="itc-hint">Initial stock quantity (optional).</span>
+						</div>
+						<div class="itc-form-group">
+							<label class="itc-label">Opening Warehouse</label>
+							<div class="itc-field" id="itc-opening-warehouse-field"></div>
+							<div class="itc-field-error" id="itc-err-warehouse"></div>
+							<span class="itc-hint">Required if opening stock is set.</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Variant mode: shared warehouse only -->
+				<div class="itc-stock-fields itc-variant-stock" style="display:none;">
+					<div class="itc-form-row">
+						<div class="itc-form-group">
+							<label class="itc-label">Opening Warehouse</label>
+							<div class="itc-field" id="itc-opening-warehouse-variant-field"></div>
+							<div class="itc-field-error" id="itc-err-warehouse-v"></div>
+							<span class="itc-hint">Warehouse for opening stock (shared across all variants).</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Posting date row -->
+				<div class="itc-form-row" id="itc-posting-date-row" style="display:none;">
+					<div class="itc-form-group">
+						<label class="itc-label">Posting Date</label>
+						<div class="itc-field" id="itc-posting-date-field"></div>
+						<span class="itc-hint">Date for opening stock entry. Leave blank for today. Use for backdated imports.</span>
+					</div>
+					<div class="itc-form-group">
+						<div class="itc-info-box itc-info-warn" id="itc-posting-date-info" style="display:none;">
+							<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3m0 2.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+							<span><b>Backdated:</b> Opening stock &amp; ledger entries will post on the selected date. Affects FY closing balances.</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</details>
+
+		<!-- Action Bar -->
+		<div class="itc-action-bar">
+			<button type="button" class="btn btn-default itc-btn-reset" id="itc-btn-reset">
+				<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8a5 5 0 1 0 1.5-3.5L3 6m0-3v3h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+				Reset Form
+			</button>
+			<div class="itc-action-spacer"></div>
+			<button type="button" class="btn btn-primary itc-btn-create" id="itc-btn-create">
+				<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 4L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+				<span class="itc-btn-label">Create Item</span>
+			</button>
+		</div>
+
+	</div>
+
+	<!-- Success State -->
+	<div class="itc-success" id="itc-success" style="display:none;">
+		<div class="itc-success-card">
+			<div class="itc-success-icon" aria-hidden="true">
+				<svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="3"/><path d="M20 33l8 8 16-18" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+			</div>
+			<h2 class="itc-success-title" id="itc-success-title">Item Created Successfully!</h2>
+			<div class="itc-success-code" id="itc-success-code"></div>
+			<div class="itc-success-template" id="itc-success-template" style="display:none;">
+				Template: <a id="itc-success-template-link" href="#"></a>
+			</div>
+			<div class="itc-success-variant-list" id="itc-success-variant-list" style="display:none;"></div>
+			<div class="itc-success-actions">
+				<button type="button" class="btn btn-primary" id="itc-view-item">View Item</button>
+				<button type="button" class="btn btn-default" id="itc-create-another">Create Another</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Recent Items -->
+	<div class="itc-recent" id="itc-recent">
+		<h4 class="itc-recent-title">Recent Items</h4>
+		<div class="itc-recent-list" id="itc-recent-list"></div>
+	</div>
+
+</div>

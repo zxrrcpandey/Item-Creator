@@ -1,0 +1,88 @@
+{
+ "actions": [],
+ "creation": "2026-03-09 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "issingle": 1,
+ "field_order": [
+  "settings_section",
+  "default_separator",
+  "approver_roles",
+  "column_break_1",
+  "serial_digits",
+  "counters_section",
+  "counters"
+ ],
+ "fields": [
+  {
+   "fieldname": "settings_section",
+   "fieldtype": "Section Break",
+   "label": "Code Format Settings"
+  },
+  {
+   "fieldname": "default_separator",
+   "fieldtype": "Data",
+   "label": "Separator",
+   "default": "-",
+   "description": "Character used between code segments (e.g., - for ABC-RAW-001)"
+  },
+  {
+   "fieldname": "approver_roles",
+   "fieldtype": "Small Text",
+   "label": "Approver Roles (comma separated)",
+   "description": "Roles allowed to approve item requests. Leave blank for defaults: System Manager, Item Manager, Stock Manager."
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "serial_digits",
+   "fieldtype": "Int",
+   "label": "Serial Number Digits",
+   "default": "3",
+   "description": "Number of digits for serial number (3 = 001, 4 = 0001)"
+  },
+  {
+   "fieldname": "counters_section",
+   "fieldtype": "Section Break",
+   "label": "Serial Counters (Auto-managed)"
+  },
+  {
+   "fieldname": "counters",
+   "fieldtype": "Table",
+   "label": "Company-Category Counters",
+   "options": "TS Code Counter",
+   "description": "Tracks the last serial number used for each company + category combination. Auto-populated when items are created."
+  }
+ ],
+ "links": [],
+ "modified": "2026-03-09 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Item Creator",
+ "name": "TS Item Code Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Item Manager"
+  },
+  {
+   "read": 1,
+   "role": "Stock Manager"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,0 +1,478 @@
+{
+ "actions": [],
+ "autoname": "format:ITC-{####}",
+ "creation": "2026-03-09 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "creation_type",
+  "builder_section",
+  "company",
+  "company_code_type",
+  "company_code",
+  "column_break_company",
+  "item_group",
+  "category_code_type",
+  "category_code",
+  "asset_category",
+  "asset_category_code",
+  "fiscal_year",
+  "fiscal_year_short",
+  "serial_section",
+  "serial_number",
+  "column_break_serial",
+  "has_variant",
+  "variant_section",
+  "variant_source",
+  "brand",
+  "brand_code",
+  "column_break_variant",
+  "variant",
+  "variant_code",
+  "variants_section",
+  "variants",
+  "preview_section",
+  "generated_item_code",
+  "details_section",
+  "item_name",
+  "gst_hsn_code",
+  "column_break_details",
+  "stock_uom",
+  "item_tax_template",
+  "stock_section",
+  "maintain_stock",
+  "valuation_rate",
+  "standard_rate",
+  "column_break_stock",
+  "opening_stock",
+  "opening_warehouse",
+  "posting_date",
+  "description_section",
+  "description",
+  "result_section",
+  "item_created",
+  "template_item",
+  "requested_by",
+  "column_break_result",
+  "status",
+  "approved_by",
+  "approved_on",
+  "rejection_reason"
+ ],
+ "fields": [
+  {
+   "fieldname": "creation_type",
+   "fieldtype": "Select",
+   "label": "Creation Type",
+   "options": "Regular Item\nFixed Asset",
+   "default": "Regular Item",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "description": "Regular Item for stock/consumables. Fixed Asset for equipment/vehicles/furniture."
+  },
+  {
+   "fieldname": "builder_section",
+   "fieldtype": "Section Break",
+   "label": "Item Code Builder"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "company_code_type",
+   "fieldtype": "Select",
+   "label": "Company Code Type",
+   "options": "Character\nNumerical",
+   "default": "Character",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company_code",
+   "fieldtype": "Data",
+   "label": "Company Code",
+   "read_only": 1,
+   "description": "Auto-fetched from Company master based on code type"
+  },
+  {
+   "fieldname": "column_break_company",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "label": "Item Group / Category",
+   "options": "Item Group",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "category_code_type",
+   "fieldtype": "Select",
+   "label": "Category Code Type",
+   "options": "Character\nNumerical",
+   "default": "Character",
+   "reqd": 1
+  },
+  {
+   "fieldname": "category_code",
+   "fieldtype": "Data",
+   "label": "Category Code",
+   "read_only": 1,
+   "description": "Auto-fetched from Item Group master based on code type"
+  },
+  {
+   "fieldname": "asset_category",
+   "fieldtype": "Link",
+   "label": "Asset Category",
+   "options": "Asset Category",
+   "depends_on": "eval:doc.creation_type==\"Fixed Asset\"",
+   "mandatory_depends_on": "eval:doc.creation_type==\"Fixed Asset\"",
+   "description": "Select the Asset Category for this fixed asset"
+  },
+  {
+   "fieldname": "asset_category_code",
+   "fieldtype": "Data",
+   "label": "Asset Category Code",
+   "read_only": 1,
+   "hidden": 1,
+   "description": "Deprecated — no longer used in the item code"
+  },
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "label": "Fiscal Year",
+   "options": "Fiscal Year",
+   "depends_on": "eval:doc.creation_type==\"Fixed Asset\"",
+   "mandatory_depends_on": "eval:doc.creation_type==\"Fixed Asset\"",
+   "description": "Fiscal Year for the asset code. Defaults to current FY; override for backdated items."
+  },
+  {
+   "fieldname": "fiscal_year_short",
+   "fieldtype": "Data",
+   "label": "FY Short Form",
+   "read_only": 1,
+   "depends_on": "eval:doc.creation_type==\"Fixed Asset\"",
+   "description": "Auto-derived from Fiscal Year (e.g. 2025-2026 becomes 25-26)"
+  },
+  {
+   "fieldname": "serial_section",
+   "fieldtype": "Section Break",
+   "label": "Serial & Variant"
+  },
+  {
+   "fieldname": "serial_number",
+   "fieldtype": "Data",
+   "label": "Serial Number",
+   "read_only": 1,
+   "description": "Auto-incremented per Company + Category combination"
+  },
+  {
+   "fieldname": "column_break_serial",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "has_variant",
+   "fieldtype": "Check",
+   "label": "Has Variant",
+   "default": "0"
+  },
+  {
+   "fieldname": "variant_section",
+   "fieldtype": "Section Break",
+   "label": "Variant Selection",
+   "depends_on": "eval:doc.has_variant",
+   "collapsible": 0
+  },
+  {
+   "fieldname": "variant_source",
+   "fieldtype": "Select",
+   "label": "Variant Source",
+   "options": "Brand\nCustom Variant",
+   "default": "Brand",
+   "depends_on": "eval:doc.has_variant",
+   "description": "Brand (from ERPNext Brand master) or Custom Variant (from TS Variant master)"
+  },
+  {
+   "fieldname": "brand",
+   "fieldtype": "Link",
+   "label": "Brand",
+   "options": "Brand",
+   "depends_on": "eval:doc.has_variant && doc.variant_source=='Brand'"
+  },
+  {
+   "fieldname": "brand_code",
+   "fieldtype": "Data",
+   "label": "Brand Code",
+   "read_only": 1,
+   "fetch_from": "brand.brand_code",
+   "depends_on": "eval:doc.has_variant && doc.variant_source=='Brand'"
+  },
+  {
+   "fieldname": "column_break_variant",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "variant",
+   "fieldtype": "Link",
+   "label": "Custom Variant",
+   "options": "TS Variant",
+   "depends_on": "eval:doc.has_variant && doc.variant_source=='Custom Variant'"
+  },
+  {
+   "fieldname": "variant_code",
+   "fieldtype": "Data",
+   "label": "Variant Code",
+   "read_only": 1,
+   "fetch_from": "variant.variant_code",
+   "depends_on": "eval:doc.has_variant && doc.variant_source=='Custom Variant'"
+  },
+  {
+   "fieldname": "variants_section",
+   "fieldtype": "Section Break",
+   "label": "Variant Items",
+   "depends_on": "eval:doc.has_variant",
+   "description": "Add multiple variant items to create in one go"
+  },
+  {
+   "fieldname": "variants",
+   "fieldtype": "Table",
+   "label": "Variants",
+   "options": "TS Item Creator Variant",
+   "depends_on": "eval:doc.has_variant"
+  },
+  {
+   "fieldname": "preview_section",
+   "fieldtype": "Section Break",
+   "label": "Generated Item Code"
+  },
+  {
+   "fieldname": "generated_item_code",
+   "fieldtype": "Data",
+   "label": "Generated Item Code",
+   "read_only": 1,
+   "bold": 1,
+   "in_list_view": 1,
+   "description": "This will be the Item Code in ERPNext"
+  },
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Item Details"
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name",
+   "description": "Optional human-readable name. If empty, Item Code will be used as name"
+  },
+  {
+   "fieldname": "gst_hsn_code",
+   "fieldtype": "Data",
+   "label": "HSN/SAC Code",
+   "description": "Optional tax classification code (HSN/SAC). Copied onto the Item only if the site has a matching field."
+  },
+  {
+   "fieldname": "column_break_details",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "stock_uom",
+   "fieldtype": "Link",
+   "label": "Stock UOM",
+   "options": "UOM",
+   "reqd": 1,
+   "default": "Nos"
+  },
+  {
+   "fieldname": "item_tax_template",
+   "fieldtype": "Link",
+   "label": "Item Tax Template",
+   "options": "Item Tax Template"
+  },
+  {
+   "fieldname": "stock_section",
+   "fieldtype": "Section Break",
+   "label": "Stock & Valuation",
+   "description": "For standalone items. Variant items have per-variant stock settings."
+  },
+  {
+   "fieldname": "maintain_stock",
+   "fieldtype": "Check",
+   "label": "Maintain Stock",
+   "default": "1"
+  },
+  {
+   "fieldname": "valuation_rate",
+   "fieldtype": "Currency",
+   "label": "Valuation Rate",
+   "depends_on": "eval:!doc.has_variant",
+   "description": "Rate at which this item is valued in stock"
+  },
+  {
+   "fieldname": "standard_rate",
+   "fieldtype": "Currency",
+   "label": "Standard Selling Rate",
+   "depends_on": "eval:!doc.has_variant",
+   "description": "Default selling rate for this item"
+  },
+  {
+   "fieldname": "column_break_stock",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "opening_stock",
+   "fieldtype": "Float",
+   "label": "Opening Stock",
+   "depends_on": "eval:doc.maintain_stock",
+   "description": "Initial stock quantity"
+  },
+  {
+   "fieldname": "opening_warehouse",
+   "fieldtype": "Link",
+   "label": "Opening Warehouse",
+   "options": "Warehouse",
+   "depends_on": "eval:doc.maintain_stock && doc.opening_stock",
+   "description": "Warehouse for opening stock"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "depends_on": "eval:doc.maintain_stock && doc.opening_stock",
+   "description": "Date for opening stock entry. Leave blank for today's date. Use for backdated/post-dated imports."
+  },
+  {
+   "fieldname": "description_section",
+   "fieldtype": "Section Break",
+   "label": "Description",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "fieldname": "result_section",
+   "fieldtype": "Section Break",
+   "label": "Result"
+  },
+  {
+   "fieldname": "item_created",
+   "fieldtype": "Link",
+   "label": "Created Item",
+   "options": "Item",
+   "read_only": 1,
+   "description": "Link to the created Item (populated after creation)"
+  },
+  {
+   "fieldname": "template_item",
+   "fieldtype": "Link",
+   "label": "Template Item",
+   "options": "Item",
+   "read_only": 1,
+   "depends_on": "eval:doc.has_variant && doc.template_item",
+   "description": "Template item (parent) for variant items"
+  },
+  {
+   "fieldname": "column_break_result",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nPending Approval\nCreated\nRejected",
+   "default": "Draft",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "requested_by",
+   "fieldtype": "Link",
+   "label": "Requested By",
+   "options": "User",
+   "read_only": 1,
+   "description": "User who submitted this item-creation request"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved/Actioned By",
+   "options": "User",
+   "read_only": 1,
+   "depends_on": "eval:['Created','Rejected'].includes(doc.status)"
+  },
+  {
+   "fieldname": "approved_on",
+   "fieldtype": "Datetime",
+   "label": "Approved/Actioned On",
+   "read_only": 1,
+   "depends_on": "eval:['Created','Rejected'].includes(doc.status)"
+  },
+  {
+   "fieldname": "rejection_reason",
+   "fieldtype": "Small Text",
+   "label": "Rejection Reason",
+   "read_only": 1,
+   "depends_on": "eval:doc.status=='Rejected'"
+  }
+ ],
+ "links": [],
+ "modified": "2026-03-09 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Item Creator",
+ "name": "TS Item Creator",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Item Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Stock Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "generated_item_code, company, item_group",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "generated_item_code",
+ "track_changes": 1
+}

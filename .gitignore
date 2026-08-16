@@ -1,0 +1,13 @@
+.DS_Store
+*.pyc
+*.py[cod]
+__pycache__/
+*.swp
+tags
+
+*.egg-info/
+dist/
+build/
+.eggs/
+
+node_modules/

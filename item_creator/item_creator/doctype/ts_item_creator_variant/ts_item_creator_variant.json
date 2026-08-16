@@ -1,0 +1,91 @@
+{
+ "actions": [],
+ "creation": "2026-03-09 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "brand",
+  "brand_code",
+  "variant",
+  "variant_code",
+  "column_break_1",
+  "valuation_rate",
+  "standard_rate",
+  "opening_stock",
+  "column_break_2",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "brand",
+   "fieldtype": "Link",
+   "label": "Brand",
+   "options": "Brand",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "brand_code",
+   "fieldtype": "Data",
+   "label": "Brand Code",
+   "read_only": 1,
+   "fetch_from": "brand.brand_code",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "variant",
+   "fieldtype": "Link",
+   "label": "Custom Variant",
+   "options": "TS Variant"
+  },
+  {
+   "fieldname": "variant_code",
+   "fieldtype": "Data",
+   "label": "Variant Code",
+   "read_only": 1,
+   "fetch_from": "variant.variant_code"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "valuation_rate",
+   "fieldtype": "Currency",
+   "label": "Valuation Rate",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "standard_rate",
+   "fieldtype": "Currency",
+   "label": "Standard Selling Rate",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "opening_stock",
+   "fieldtype": "Float",
+   "label": "Opening Stock",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-03-09 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Item Creator",
+ "name": "TS Item Creator Variant",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 0
+}

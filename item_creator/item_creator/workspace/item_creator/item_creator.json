@@ -1,0 +1,71 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"itc_header\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Item Creator</span>\",\"col\":12}},{\"id\":\"itc_sc_page\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Create New Item\",\"col\":3}},{\"id\":\"itc_sc_req\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Item Requests\",\"col\":3}},{\"id\":\"itc_sc_set\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Item Code Settings\",\"col\":3}},{\"id\":\"itc_sc_item\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Item\",\"col\":3}},{\"id\":\"itc_spacer\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"itc_setup\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Setup</span>\",\"col\":12}},{\"id\":\"itc_sc_company\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Company\",\"col\":3}},{\"id\":\"itc_sc_group\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Item Group\",\"col\":3}}]",
+ "creation": "2026-08-16 00:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "package",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Item Creator",
+ "links": [],
+ "modified": "2026-08-16 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Item Creator",
+ "name": "Item Creator",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 90.0,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "doc_view": "",
+   "label": "Create New Item",
+   "link_to": "item-creator",
+   "type": "Page"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Item Requests",
+   "link_to": "TS Item Creator",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "label": "Item Code Settings",
+   "link_to": "TS Item Code Settings",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Item",
+   "link_to": "Item",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Company",
+   "link_to": "Company",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Item Group",
+   "link_to": "Item Group",
+   "type": "DocType"
+  }
+ ],
+ "title": "Item Creator"
+}

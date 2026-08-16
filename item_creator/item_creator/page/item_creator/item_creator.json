@@ -1,0 +1,31 @@
+{
+ "content": null,
+ "creation": "2026-03-09 00:00:00",
+ "doctype": "Page",
+ "icon": "tool",
+ "idx": 0,
+ "modified": "2026-03-09 20:45:00",
+ "modified_by": "Administrator",
+ "module": "Item Creator",
+ "name": "item-creator",
+ "owner": "Administrator",
+ "page_name": "item-creator",
+ "roles": [
+  {"role": "System Manager"},
+  {"role": "Item Manager"},
+  {"role": "Stock Manager"},
+  {"role": "Stock User"},
+  {"role": "Purchase Manager"},
+  {"role": "Purchase User"},
+  {"role": "Accounts Manager"},
+  {"role": "Accounts User"},
+  {"role": "Sales User"},
+  {"role": "Manufacturing User"},
+  {"role": "Maintenance User"},
+  {"role": "Projects User"},
+  {"role": "Auditor"}
+ ],
+ "standard": "Yes",
+ "system_page": 0,
+ "title": "Item Creator"
+}
