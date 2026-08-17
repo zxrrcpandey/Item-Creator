@@ -846,12 +846,13 @@ class TSItemCreator(Document):
 					"Cannot create variant under it."
 				)
 
-			# Add our attribute if not already present
-			attr_exists = any(
-				row.attribute == attr_name for row in template.attributes
-			)
-			if not attr_exists:
-				template.append("attributes", {"attribute": attr_name})
+			# Add our attribute if not already present — and re-enable it if a
+			# previous edit disabled the row. Frappe v16's Item.validate_variant()
+			# throws "Attribute <x> is disabled." for a disabled row on the
+			# template, and a name-only check would skip the append and leave no
+			# way to recover (v15 had no such check). This attribute is owned by
+			# this app, so healing it is safe.
+			if not _ensure_template_attribute(template, attr_name):
 				template.save(ignore_permissions=True)
 
 			template_msg = f"Using existing template <b>{template_code}</b>. "
@@ -948,9 +949,10 @@ class TSItemCreator(Document):
 			template_msg = f"Template <b>{template_code}</b> created.<br>"
 		else:
 			template = frappe.get_doc("Item", template_code)
-			# Add attribute if missing
-			if attr_name and not any(r.attribute == attr_name for r in template.attributes):
-				template.append("attributes", {"attribute": attr_name})
+			# Add the attribute if missing, or re-enable it if disabled (see the
+			# matching note in _create_variant_item — v16 rejects a variant whose
+			# attribute row is disabled on the template).
+			if attr_name and not _ensure_template_attribute(template, attr_name):
 				template.save(ignore_permissions=True)
 			template_msg = f"Using existing template <b>{template_code}</b>.<br>"
 
@@ -1029,6 +1031,31 @@ class TSItemCreator(Document):
 			"variant_items": created_items,
 			"message": template_msg + f"<br><b>{len(created_items)}</b> variant(s) created successfully.{posting_note}"
 		}
+
+
+def _ensure_template_attribute(template, attr_name):
+	"""Make sure `template` carries an ENABLED row for `attr_name`.
+
+	Returns True when the template already satisfied that (caller need not
+	save), False when a row was added or re-enabled (caller must save).
+
+	Frappe v16 added Item.validate_variant(), which rejects a variant whose
+	attribute row on the template is missing *or* disabled
+	(erpnext/stock/doctype/item/item.py — "Attribute {0} is disabled."). v15 had
+	no equivalent check, so a name-only membership test was sufficient there and
+	is not any more: a disabled row would look present, the append would be
+	skipped, and the variant insert would fail with no way for the app to heal.
+	"""
+	for row in template.attributes:
+		if row.attribute != attr_name:
+			continue
+		if row.disabled:
+			row.disabled = 0
+			return False
+		return True
+
+	template.append("attributes", {"attribute": attr_name})
+	return False
 
 
 def _ensure_variant_attribute(variant_code_value):
