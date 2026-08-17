@@ -1471,7 +1471,11 @@ def get_my_recent_requests(limit=6):
 			filters={"owner": user},
 			fields=["name", "generated_item_code", "item_name", "status", "item_created"],
 			order_by="creation desc",
-			limit_page_length=lim,
+			# `limit`, not `limit_page_length`: Frappe v16 routes get_all through
+			# frappe.model.qb_query, which deprecates the latter (slated for removal
+			# in v17) and warns on every call. v15's db_query accepts `limit` too,
+			# so this works on both.
+			limit=lim,
 		)
 	except Exception:
 		return []
