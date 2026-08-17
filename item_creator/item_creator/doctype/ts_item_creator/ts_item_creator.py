@@ -26,6 +26,30 @@ ITEM_REQUEST_FLOOR_ONLY = set()
 # security gate.
 ITEM_REQUEST_BASELINE_ROLES = {"All", "Guest", "Employee", "Desk User"}
 
+def _hsn_validation_active():
+	"""True when this site will REJECT an Item that has no HSN/SAC code.
+
+	india_compliance hooks Item.validate and, for sales items, throws
+	MandatoryError when GST Settings → validate_hsn_code is on. Since
+	ERPNext defaults is_sales_item to 1, every Item this app creates is
+	affected. Without this check the failure surfaces late and confusingly,
+	from deep inside the Item insert, after a code has already been minted.
+
+	Deliberately fail-open: on a site without india_compliance (this app is
+	installed on non-Indian sites too) this returns False and HSN stays
+	optional.
+	"""
+	try:
+		if "india_compliance" not in frappe.get_installed_apps():
+			return False
+		from india_compliance.gst_india.utils import get_hsn_settings
+
+		validate_hsn, _lengths = get_hsn_settings()
+		return bool(validate_hsn)
+	except Exception:
+		return False
+
+
 # Hard cap on the rows pulled into the in-memory fuzzy (difflib) duplicate scan.
 # Keeps search_existing_items bounded on sites with very large item masters.
 FUZZY_SCAN_CAP = 2000
@@ -428,7 +452,43 @@ class TSItemCreator(Document):
 
 		self.generated_item_code = sep.join(parts)
 
+	def _validate_hsn_code(self):
+		"""Fail early and clearly when the site requires an HSN/SAC code.
+
+		Only enforced where it genuinely applies (see _hsn_validation_active),
+		so this app still works on sites without india_compliance.
+		"""
+		if not _hsn_validation_active():
+			return
+
+		if not self.gst_hsn_code:
+			frappe.throw(
+				_(
+					"HSN/SAC Code is required on this site.<br><br>"
+					"India Compliance is installed and <b>GST Settings → Validate HSN/SAC Code</b> "
+					"is enabled, so ERPNext will refuse to create an Item without one.<br>"
+					"Enter the HSN/SAC code for this item and try again."
+				),
+				frappe.MandatoryError,
+				title=_("HSN/SAC Code Required"),
+			)
+
+		# Item.gst_hsn_code is a Link to "GST HSN Code" — a value that is not in
+		# that master fails link validation much later, with a vaguer message.
+		if not frappe.db.exists("GST HSN Code", self.gst_hsn_code):
+			frappe.throw(
+				_(
+					"HSN/SAC Code <b>{0}</b> does not exist in the GST HSN Code master.<br><br>"
+					"Pick an existing code from "
+					"<a href='/app/gst-hsn-code'>GST HSN Code</a> — the code is stored as a link, "
+					"not free text, so it must already be on the list."
+				).format(escape_html(self.gst_hsn_code)),
+				title=_("Unknown HSN/SAC Code"),
+			)
+
 	def validate(self):
+		self._validate_hsn_code()
+
 		if not self.company_code:
 			frappe.throw(
 				f"Company Code not found for <b>{self.company}</b>.<br>"
