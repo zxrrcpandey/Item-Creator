@@ -5,6 +5,21 @@ app_description = "Guided item creation with server-generated item codes for ERP
 app_email = "info@trustbit.com"
 app_license = "mit"
 
+# Register on the desk apps screen (the launcher grid).
+# frappe's create_desktop_icons_from_installed_apps() only creates an "App" type
+# Desktop Icon for apps that declare this hook — and without that app icon the
+# app's workspace tile gets no parent_icon and never renders on /desk.
+# `route` and `logo` are indexed directly by that function, so both are required.
+add_to_apps_screen = [
+	{
+		"name": app_name,
+		"logo": "/assets/item_creator/images/item-creator.svg",
+		"title": app_title,
+		"route": "/app/item-management",
+	}
+]
+
+
 # The app creates Items, Item Attributes and Stock Entries and reads Company /
 # Item Group / Brand, so ERPNext is a hard dependency. Declaring it here makes
 # `install-app` refuse up front on a frappe-only site instead of failing later
