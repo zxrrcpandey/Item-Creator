@@ -1,0 +1,19 @@
+{
+ "app": "item_creator",
+ "doctype": "Workspace Sidebar",
+ "header_icon": "package",
+ "modified": "2026-08-18 22:30:00.000000",
+ "module": "Item Creator",
+ "name": "Item Management",
+ "standard": 1,
+ "title": "Item Management",
+ "items": [
+  {"child": 0, "collapsible": 1, "icon": "home", "indent": 0, "keep_closed": 0, "label": "Home", "link_to": "Item Management", "link_type": "Workspace", "show_arrow": 0, "type": "Link"},
+  {"child": 0, "collapsible": 1, "icon": "package-plus", "indent": 0, "keep_closed": 0, "label": "Create New Item", "link_to": "item-creator", "link_type": "Page", "show_arrow": 0, "type": "Link"},
+  {"child": 0, "collapsible": 1, "icon": "clipboard-list", "indent": 0, "keep_closed": 0, "label": "Item Requests", "link_to": "TS Item Creator", "link_type": "DocType", "show_arrow": 0, "type": "Link"},
+  {"child": 0, "collapsible": 1, "icon": "package", "indent": 0, "keep_closed": 0, "label": "Item", "link_to": "Item", "link_type": "DocType", "show_arrow": 0, "type": "Link"},
+  {"child": 0, "collapsible": 1, "icon": "folder-tree", "indent": 0, "keep_closed": 0, "label": "Item Group", "link_to": "Item Group", "link_type": "DocType", "show_arrow": 0, "type": "Link"},
+  {"child": 0, "collapsible": 1, "icon": "settings", "indent": 0, "keep_closed": 0, "label": "Item Code Settings", "link_to": "TS Item Code Settings", "link_type": "DocType", "show_arrow": 0, "type": "Link"},
+  {"child": 0, "collapsible": 1, "icon": "organization", "indent": 0, "keep_closed": 0, "label": "Company", "link_to": "Company", "link_type": "DocType", "show_arrow": 0, "type": "Link"}
+ ]
+}
