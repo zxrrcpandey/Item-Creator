@@ -15,7 +15,7 @@ add_to_apps_screen = [
 		"name": app_name,
 		"logo": "/assets/item_creator/images/item-creator.svg",
 		"title": app_title,
-		"route": "/app/item-management",
+		"route": "/desk/item-management",
 	}
 ]
 
