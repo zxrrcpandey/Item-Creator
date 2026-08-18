@@ -1,0 +1,16 @@
+{
+ "app": "item_creator",
+ "docstatus": 0,
+ "doctype": "Desktop Icon",
+ "hidden": 1,
+ "icon_type": "App",
+ "idx": 101,
+ "label": "Item Creator",
+ "link": "/desk/item-management",
+ "link_type": "External",
+ "logo_url": "/assets/item_creator/images/item-creator.svg",
+ "modified": "2026-08-18 23:00:00.000000",
+ "name": "Item Creator",
+ "roles": [],
+ "standard": 1
+}

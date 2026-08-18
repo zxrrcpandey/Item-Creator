@@ -1,0 +1,18 @@
+{
+ "app": "item_creator",
+ "docstatus": 0,
+ "doctype": "Desktop Icon",
+ "hidden": 0,
+ "icon": "package",
+ "icon_type": "Link",
+ "idx": 2,
+ "label": "Item Management",
+ "link_to": "Item Management",
+ "link_type": "Workspace Sidebar",
+ "modified": "2026-08-18 23:00:00.000000",
+ "name": "Item Management",
+ "parent_icon": "Item Creator",
+ "restrict_removal": 0,
+ "roles": [],
+ "standard": 1
+}
