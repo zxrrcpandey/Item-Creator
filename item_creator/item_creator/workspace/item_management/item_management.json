@@ -67,5 +67,7 @@
    "type": "DocType"
   }
  ],
- "title": "Item Management"
+ "title": "Item Management",
+ "type": "Workspace",
+ "app": "item_creator"
 }
